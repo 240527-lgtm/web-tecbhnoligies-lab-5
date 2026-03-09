@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Weather App</title>
+</head>
+<body>
+
+<h2>Weather App</h2>
+
+<input type="text" id="cityInput" placeholder="Enter City Name">
+<button onclick="getWeather()">Search</button>
+
+<h3 id="weatherResult"></h3>
+
+<script>
+
+const apiKey = "YOUR_API_KEY"; 
+
+function getWeather()
+{
+
+let city = document.getElementById("cityInput").value;
+
+localStorage.setItem("lastCity", city);
+
+fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`)
+
+.then(res => res.json())
+
+.then(data => {
+
+document.getElementById("weatherResult").innerHTML =
+"City: " + data.name + "<br>" +
+"Temperature: " + data.main.temp + "°C<br>" +
+"Condition: " + data.weather[0].main;
+
+})
+
+.catch(err => console.log(err));
+
+}
+
+window.onload = function(){
+
+let lastCity = localStorage.getItem("lastCity");
+
+if(lastCity)
+{
+document.getElementById("cityInput").value = lastCity;
+getWeather();
+}
+
+}
+
+</script>
+
+</body>
+</html>
