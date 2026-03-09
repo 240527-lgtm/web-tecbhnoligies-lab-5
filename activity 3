@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Fetch API Example</title>
+</head>
+<body>
+
+<h2>User Info</h2>
+
+<div id="userData"></div>
+
+<script>
+
+fetch("https://jsonplaceholder.typicode.com/users/1")
+
+.then(function(res){
+return res.json();
+})
+
+.then(function(data){
+
+document.getElementById("userData").innerHTML =
+"Name: " + data.name + "<br>" +
+"Email: " + data.email;
+
+})
+
+.catch(function(err){
+console.log("Error:", err);
+});
+
+</script>
+
+</body>
+</html>
